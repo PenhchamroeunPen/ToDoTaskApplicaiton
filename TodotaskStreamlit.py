@@ -63,22 +63,29 @@ def main():
     if st.sidebar.button("Add"):
         if task_input:
             tasks_list.add_task(task_input)
+            st.sidebar.success("Task added successfully!")
 
     # Sidebar for removing tasks
     task_to_remove = st.sidebar.text_input("Remove Task:")
     if st.sidebar.button("Remove"):
         if task_to_remove:
             tasks_list.remove_task(task_to_remove)
+            st.sidebar.success("Task removed successfully!")
+
+    # Sidebar button to view tasks
+    view_tasks = st.sidebar.button("View Tasks")
 
     # Main content to display tasks
     st.write("## Your To-Do List:")
-    tasks = tasks_list.display_tasks()
 
-    if not tasks:
-        st.write("No tasks yet. Add some tasks using the sidebar!")
+    if view_tasks:
+        tasks = tasks_list.display_tasks()
 
-    for i, task in enumerate(tasks, start=1):
-        st.write(f"{i}. {task}")
+        if not tasks:
+            st.write("No tasks yet. Add some tasks using the sidebar!")
+        else:
+            for i, task in enumerate(tasks, start=1):
+                st.write(f"{i}. {task}")
 
 if __name__ == "__main__":
     main()
